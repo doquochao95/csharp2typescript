@@ -18,6 +18,14 @@
         "title": "Convert C# to TypeScript"
       }
     ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "csharp2typescript.cs2ts",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": {
       "type": "object",
       "title": "CSharp2TS configuration",
