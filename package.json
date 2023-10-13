@@ -1,0 +1,131 @@
+{
+  "name": "csharp2typescript",
+  "displayName": "Csharp2Typescript",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.83.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "csharp2typescript.cs2ts",
+        "title": "Convert C# to TypeScript"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "CSharp2TS configuration",
+      "properties": {
+        "csharp2typescript.propertiesToCamelCase": {
+          "type": "boolean",
+          "default": false,
+          "description": "True for camelCase, false for preserving original name."
+        },
+        "csharp2typescript.trimPostfixes": {
+          "type": [
+            "array",
+            "string"
+          ],
+          "default": "",
+          "description": "Removes specified postfixes from property names, types & class names. Can be array OR string. Case-sensitive."
+        },
+        "csharp2typescript.recursiveTrimPostfixes": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether or not trim postfixes recursive. (e.g. with postfixes 'A' & 'B' PersonAAB will become PersonAA when it's false & Person when it's true)"
+        },
+        "csharp2typescript.ignoreInitializer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ignore property initializer"
+        },
+        "csharp2typescript.removeMethodBodies": {
+          "type": "boolean",
+          "default": true,
+          "description": "True to remove method bodies, false to preserve the body as-is"
+        },
+        "csharp2typescript.removeConstructors": {
+          "type": "boolean",
+          "default": false,
+          "description": "True to remove class constructors, false to treat then like any other method"
+        },
+        "csharp2typescript.methodStyle": {
+          "type": "string",
+          "enum": [
+            "signature",
+            "lambda",
+            "controller"
+          ],
+          "default": "signature",
+          "description": "'signature' to emit a method signature, 'lambda' to emit a lambda function. 'controller' to emit a lambda to call an async controller"
+        },
+        "csharp2typescript.byteArrayToString": {
+          "type": "boolean",
+          "default": true,
+          "description": "True to convert C# byte array type to Typescript string, defaults to true since the serialization of C# byte[] results in a string"
+        },
+        "csharp2typescript.dateToDateOrString": {
+          "type": "boolean",
+          "default": true,
+          "description": "True to convert C# DateTime and DateTimeOffset to Typescript (Date | string), defaults to true since the serialization of C# DateTime results in a string"
+        },
+        "csharp2typescript.removeWithModifier": {
+          "type": "array",
+          "default": [],
+          "description": "Remove fields or properties with the given modifiers. Ex. if you want to remove private and internal members set to ['private', 'internal']"
+        },
+        "csharp2typescript.removeNameRegex": {
+          "type": "string",
+          "default": "",
+          "description": "If setted, any property or field that its name matches the given regex will be removed"
+        },
+        "csharp2typescript.classToInterface": {
+          "type": "boolean",
+          "default": true,
+          "description": "True to convert classes to interfaces, false to convert classes to classes. Default is true"
+        },
+        "csharp2typescript.preserveModifiers": {
+          "type": "boolean",
+          "default": false,
+          "description": "True to preserve fields and property modifiers. Default is false"
+        },
+        "csharp2typescript.removeSpecialKeywords": {
+          "type": "boolean",
+          "default": false,
+          "description": "True to remove special keywords virtual and #nullable disable"
+        },
+        "csharp2typescript.removeUsings": {
+          "type": "boolean",
+          "default": false,
+          "description": "True to remove using/import statements"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.83.0",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.50.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}
