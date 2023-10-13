@@ -32,8 +32,8 @@
       "properties": {
         "csharp2typescript.propertiesToCamelCase": {
           "type": "boolean",
-          "default": false,
-          "description": "True for camelCase, false for preserving original name."
+          "default": true,
+          "description": "True for camelCase, false for preserving original name. Default is true (set first char to lower case)"
         },
         "csharp2typescript.trimPostfixes": {
           "type": [
