@@ -1,6 +1,7 @@
 {
   "name": "csharp2typescript",
   "displayName": "Csharp2Typescript",
+  "publisher": "doquochao95",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -16,12 +17,20 @@
       {
         "command": "csharp2typescript.cs2ts",
         "title": "Convert C# to TypeScript"
+      },
+      {
+        "command": "csharp2typescript.ts2cs",
+        "title": "Convert TypeScript to C#"
       }
     ],
     "menus": {
       "editor/context": [
         {
           "command": "csharp2typescript.cs2ts",
+          "group": "navigation"
+        },
+        {
+          "command": "csharp2typescript.ts2cs",
           "group": "navigation"
         }
       ]
