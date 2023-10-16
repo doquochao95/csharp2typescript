@@ -10,12 +10,12 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "csharp2typescript" is now active!');
+    console.log('Congratulations, your extension "converter" is now active!');
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
-    let cs2tsdisposable = vscode.commands.registerCommand('csharp2typescript.cs2ts', () => {
+    let cs2tsdisposable = vscode.commands.registerCommand('converter.cs2ts', () => {
         // The code you place here will be executed every time your command is executed
 
         var editor = vscode.window.activeTextEditor;
@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
             e.replace(selection, cs2ts(text, config));
         });
     });
-    let ts2csdisposable = vscode.commands.registerCommand('csharp2typescript.ts2cs', () => {
+    let ts2csdisposable = vscode.commands.registerCommand('converter.ts2cs', () => {
         // The code you place here will be executed every time your command is executed
 
         var editor = vscode.window.activeTextEditor;
