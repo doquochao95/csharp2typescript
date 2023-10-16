@@ -1,8 +1,9 @@
 {
-  "name": "csharp2typescript",
-  "displayName": "Csharp2Typescript",
+  "name": "converter",
+  "displayName": "C#-TS Converter",
   "publisher": "doquochao95",
   "description": "",
+  "icon": "images/logo.png",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.83.0"
@@ -15,22 +16,22 @@
   "contributes": {
     "commands": [
       {
-        "command": "csharp2typescript.cs2ts",
+        "command": "converter.cs2ts",
         "title": "Convert C# to TypeScript"
       },
       {
-        "command": "csharp2typescript.ts2cs",
+        "command": "converter.ts2cs",
         "title": "Convert TypeScript to C#"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "csharp2typescript.cs2ts",
+          "command": "converter.cs2ts",
           "group": "navigation"
         },
         {
-          "command": "csharp2typescript.ts2cs",
+          "command": "converter.ts2cs",
           "group": "navigation"
         }
       ]
@@ -40,17 +41,17 @@
         "type": "object",
         "title": "TS to C# configuration",
         "properties": {
-          "csharp2typescript.propertiesToCamelCase": {
+          "converter.propertiesToCamelCase": {
             "type": "boolean",
             "default": true,
             "description": "True for camelCase, false for preserving original name. Default is true (set first char to lower case)"
           },
-          "csharp2typescript.keepAbbreviation": {
+          "converter.keepAbbreviation": {
             "type": "boolean",
             "default": true,
             "description": "True to set lower to first word of name or name (do not contain '_'). Default is True "
           },
-          "csharp2typescript.trimPostfixes": {
+          "converter.trimPostfixes": {
             "type": [
               "array",
               "string"
@@ -58,27 +59,27 @@
             "default": "",
             "description": "Removes specified postfixes from property names, types & class names. Can be array OR string. Case-sensitive."
           },
-          "csharp2typescript.recursiveTrimPostfixes": {
+          "converter.recursiveTrimPostfixes": {
             "type": "boolean",
             "default": false,
             "description": "Whether or not trim postfixes recursive. (e.g. with postfixes 'A' & 'B' PersonAAB will become PersonAA when it's false & Person when it's true)"
           },
-          "csharp2typescript.ignoreInitializer": {
+          "converter.ignoreInitializer": {
             "type": "boolean",
             "default": true,
             "description": "Ignore property initializer"
           },
-          "csharp2typescript.removeMethodBodies": {
+          "converter.removeMethodBodies": {
             "type": "boolean",
             "default": true,
             "description": "True to remove method bodies, false to preserve the body as-is"
           },
-          "csharp2typescript.removeConstructors": {
+          "converter.removeConstructors": {
             "type": "boolean",
             "default": false,
             "description": "True to remove class constructors, false to treat then like any other method"
           },
-          "csharp2typescript.methodStyle": {
+          "converter.methodStyle": {
             "type": "string",
             "enum": [
               "signature",
@@ -88,42 +89,42 @@
             "default": "signature",
             "description": "'signature' to emit a method signature, 'lambda' to emit a lambda function. 'controller' to emit a lambda to call an async controller"
           },
-          "csharp2typescript.byteArrayToString": {
+          "converter.byteArrayToString": {
             "type": "boolean",
             "default": true,
             "description": "True to convert C# byte array type to Typescript string, defaults to true since the serialization of C# byte[] results in a string"
           },
-          "csharp2typescript.dateToDateOrString": {
+          "converter.dateToDateOrString": {
             "type": "boolean",
             "default": true,
             "description": "True to convert C# DateTime and DateTimeOffset to Typescript (Date | string), defaults to true since the serialization of C# DateTime results in a string"
           },
-          "csharp2typescript.removeWithModifier": {
+          "converter.removeWithModifier": {
             "type": "array",
             "default": [],
             "description": "Remove fields or properties with the given modifiers. Ex. if you want to remove private and internal members set to ['private', 'internal']"
           },
-          "csharp2typescript.removeNameRegex": {
+          "converter.removeNameRegex": {
             "type": "string",
             "default": "",
             "description": "If setted, any property or field that its name matches the given regex will be removed"
           },
-          "csharp2typescript.classToInterface": {
+          "converter.classToInterface": {
             "type": "boolean",
             "default": true,
             "description": "True to convert classes to interfaces, false to convert classes to classes. Default is true"
           },
-          "csharp2typescript.preserveModifiers": {
+          "converter.preserveModifiers": {
             "type": "boolean",
             "default": false,
             "description": "True to preserve fields and property modifiers. Default is false"
           },
-          "csharp2typescript.removeSpecialKeywords": {
+          "converter.removeSpecialKeywords": {
             "type": "boolean",
             "default": false,
             "description": "True to remove special keywords virtual and #nullable disable"
           },
-          "csharp2typescript.removeUsings": {
+          "converter.removeUsings": {
             "type": "boolean",
             "default": false,
             "description": "True to remove using/import statements"
@@ -134,12 +135,12 @@
         "type": "object",
         "title": "C# to TS configuration",
         "properties": {
-          "csharp2typescript.propertiesToPascalCase": {
+          "converter.propertiesToPascalCase": {
             "type": "boolean",
             "default": true,
             "description": "True for PascalCase (set first char to upper case), false for preserving original name "
           },
-          "csharp2typescript.arrayType": {
+          "converter.arrayType": {
             "type": "string",
             "enum": [
               "list",

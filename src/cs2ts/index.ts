@@ -117,25 +117,25 @@ function removeUsings(code: string): string {
 }
 export function getCs2TsConfiguration(): ExtensionCs2TsConfig {
 
-    const rawTrimPostfixes = vscode.workspace.getConfiguration('csharp2typescript').get("trimPostfixes") as string | string[];
+    const rawTrimPostfixes = vscode.workspace.getConfiguration('converter').get("trimPostfixes") as string | string[];
     const trimPostfixes: string[] = typeof rawTrimPostfixes === "string" ? [rawTrimPostfixes] : rawTrimPostfixes;
 
-    const propertiesToCamelCase = vscode.workspace.getConfiguration('csharp2typescript').get("propertiesToCamelCase") as boolean;
-    const keepAbbreviation = vscode.workspace.getConfiguration('csharp2typescript').get("keepAbbreviation") as boolean;
-    const recursiveTrimPostfixes = vscode.workspace.getConfiguration('csharp2typescript').get("recursiveTrimPostfixes") as boolean;
-    const ignoreInitializer = vscode.workspace.getConfiguration('csharp2typescript').get("ignoreInitializer") as boolean;
-    const removeMethodBodies = vscode.workspace.getConfiguration('csharp2typescript').get("removeMethodBodies") as boolean;
-    const removeConstructors = vscode.workspace.getConfiguration('csharp2typescript').get("removeConstructors") as boolean;
-    const methodStyle = vscode.workspace.getConfiguration('csharp2typescript').get("methodStyle") as ("signature" | "lambda");
-    const byteArrayToString = vscode.workspace.getConfiguration('csharp2typescript').get("byteArrayToString") as boolean;
-    const dateToDateOrString = vscode.workspace.getConfiguration('csharp2typescript').get("dateToDateOrString") as boolean;
-    const removeWithModifier = vscode.workspace.getConfiguration('csharp2typescript').get("removeWithModifier") as string[];
-    const removeNameRegex = vscode.workspace.getConfiguration('csharp2typescript').get("removeNameRegex") as string;
-    const classToInterface = vscode.workspace.getConfiguration('csharp2typescript').get("classToInterface") as boolean;
-    const preserveModifiers = vscode.workspace.getConfiguration('csharp2typescript').get("preserveModifiers") as boolean;
-    const removeSpecialKeywords = vscode.workspace.getConfiguration('csharp2typescript').get("removeSpecialKeywords") as boolean;
-    const removeUsings = vscode.workspace.getConfiguration('csharp2typescript').get("removeUsings") as boolean;
-    const dictionaryToRecord = vscode.workspace.getConfiguration('csharp2typescript').get("dictionaryToRecord") as boolean;
+    const propertiesToCamelCase = vscode.workspace.getConfiguration('converter').get("propertiesToCamelCase") as boolean;
+    const keepAbbreviation = vscode.workspace.getConfiguration('converter').get("keepAbbreviation") as boolean;
+    const recursiveTrimPostfixes = vscode.workspace.getConfiguration('converter').get("recursiveTrimPostfixes") as boolean;
+    const ignoreInitializer = vscode.workspace.getConfiguration('converter').get("ignoreInitializer") as boolean;
+    const removeMethodBodies = vscode.workspace.getConfiguration('converter').get("removeMethodBodies") as boolean;
+    const removeConstructors = vscode.workspace.getConfiguration('converter').get("removeConstructors") as boolean;
+    const methodStyle = vscode.workspace.getConfiguration('converter').get("methodStyle") as ("signature" | "lambda");
+    const byteArrayToString = vscode.workspace.getConfiguration('converter').get("byteArrayToString") as boolean;
+    const dateToDateOrString = vscode.workspace.getConfiguration('converter').get("dateToDateOrString") as boolean;
+    const removeWithModifier = vscode.workspace.getConfiguration('converter').get("removeWithModifier") as string[];
+    const removeNameRegex = vscode.workspace.getConfiguration('converter').get("removeNameRegex") as string;
+    const classToInterface = vscode.workspace.getConfiguration('converter').get("classToInterface") as boolean;
+    const preserveModifiers = vscode.workspace.getConfiguration('converter').get("preserveModifiers") as boolean;
+    const removeSpecialKeywords = vscode.workspace.getConfiguration('converter').get("removeSpecialKeywords") as boolean;
+    const removeUsings = vscode.workspace.getConfiguration('converter').get("removeUsings") as boolean;
+    const dictionaryToRecord = vscode.workspace.getConfiguration('converter').get("dictionaryToRecord") as boolean;
 
     return {
         propertiesToCamelCase,

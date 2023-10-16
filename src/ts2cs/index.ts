@@ -102,8 +102,8 @@ const extractProperties = (tsInterface: string): TsProperty[] => {
 };
 export function getTs2CsConfiguration(): ExtensionTs2CsConfig {
 
-    const propertiesToPascalCase = vscode.workspace.getConfiguration('csharp2typescript').get("propertiesToPascalCase") as boolean;
-    const arrayType = vscode.workspace.getConfiguration('csharp2typescript').get("arrayType") as ("list" | "iqueryable" | "ienumerable");
+    const propertiesToPascalCase = vscode.workspace.getConfiguration('converter').get("propertiesToPascalCase") as boolean;
+    const arrayType = vscode.workspace.getConfiguration('converter').get("arrayType") as ("list" | "iqueryable" | "ienumerable");
     return {
         propertiesToPascalCase,
         arrayType,
