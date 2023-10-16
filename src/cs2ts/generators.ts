@@ -1,17 +1,17 @@
 import * as vscode from 'vscode';
 import * as types from './types';
-import { ExtensionConfig } from "./config";
+import { ExtensionCs2TsConfig } from "./config";
 
 import { CSharpProperty } from "./properties";
 import { CSharpMethod, CSharpParameter, CSharpConstructor, CSharpRecord } from "./methods";
 import { CSharpClass } from "./classes";
 
-function generateType(type: string, config: ExtensionConfig): string {
+function generateType(type: string, config: ExtensionCs2TsConfig): string {
     const parseType = types.parseType(type);
     return trimMemberName(parseType ? types.convertToTypescript(parseType, config) : type, config);
 }
 
-function generateParam(value: CSharpParameter, separator: string, config: ExtensionConfig): string {
+function generateParam(value: CSharpParameter, separator: string, config: ExtensionCs2TsConfig): string {
     const tsType = generateType(value.type, config);
     return value.name + ": " + tsType + value.spaceBeforeComma + separator + value.spaceAfterComma;
 }
@@ -32,24 +32,24 @@ function generateControllerBody(name: string, params: CSharpParameter[]): string
     }
 }
 
-export function generateMethod(value: CSharpMethod, config: ExtensionConfig): string {
-    const paramList = value.parameters.map((x, i) => generateParam(x, i===(value.parameters.length - 1) ? "" : ",", config)).join("");
+export function generateMethod(value: CSharpMethod, config: ExtensionCs2TsConfig): string {
+    const paramList = value.parameters.map((x, i) => generateParam(x, i === (value.parameters.length - 1) ? "" : ",", config)).join("");
     const returnType = generateType(value.returnType, config);
 
     const fullType = "(" + paramList + "): " + returnType;
     const lambdaBody = (value.name + ": " + (value.async ? "async " : "")) + fullType;
 
     return (
-        config.methodStyle==="signature" ? (value.name + fullType + ";") :
-            config.methodStyle==="lambda" ? lambdaBody + " => { throw new Error('TODO'); }, " :
-                config.methodStyle==="controller" ? lambdaBody + generateControllerBody(value.name, value.parameters)
+        config.methodStyle === "signature" ? (value.name + fullType + ";") :
+            config.methodStyle === "lambda" ? lambdaBody + " => { throw new Error('TODO'); }, " :
+                config.methodStyle === "controller" ? lambdaBody + generateControllerBody(value.name, value.parameters)
                     : config.methodStyle
     );
 }
 
 
-export function generateConstructor(value: CSharpConstructor, config: ExtensionConfig): string {
-    const paramList = value.parameters.map((x, i) => generateParam(x,  i===(value.parameters.length - 1) ? "" : ",", config)).join("");
+export function generateConstructor(value: CSharpConstructor, config: ExtensionCs2TsConfig): string {
+    const paramList = value.parameters.map((x, i) => generateParam(x, i === (value.parameters.length - 1) ? "" : ",", config)).join("");
     return config.removeConstructors ? "" : ("new(" + paramList + "): " + value.name + ";");
 }
 
@@ -59,7 +59,7 @@ const myClass = {
     }
 };
 
-export function generateRecord(value: CSharpRecord, config: ExtensionConfig): string {
+export function generateRecord(value: CSharpRecord, config: ExtensionCs2TsConfig): string {
     const paramList = value.parameters.map(x => generateParam(x, ";", config)).join("");
 
     const signature = generateClass({
@@ -75,14 +75,14 @@ export function generateRecord(value: CSharpRecord, config: ExtensionConfig): st
 
 
 /**Generate a typescript property */
-export function generateProperty(prop: CSharpProperty, config: ExtensionConfig): string {
+export function generateProperty(prop: CSharpProperty, config: ExtensionCs2TsConfig): string {
     //trim spaces:
     const tsType = generateType(prop.type, config);
     const name = getTypescriptPropertyName(prop.name, config);
     const printInitializer = !config.ignoreInitializer && (!!prop.initializer);
 
-    const removeNameRegex = config.removeNameRegex!=="" && (new RegExp(config.removeNameRegex)).test(name);
-    const removeModifier = config.removeWithModifier.indexOf(prop.modifier)!==-1;
+    const removeNameRegex = config.removeNameRegex !== "" && (new RegExp(config.removeNameRegex)).test(name);
+    const removeModifier = config.removeWithModifier.indexOf(prop.modifier) !== -1;
     const removeProp = removeNameRegex || removeModifier;
     const modifier = prop.modifier; //TODO: Convert C# modifiers to TS modifiers
     if (removeProp) {
@@ -99,7 +99,7 @@ export function generateProperty(prop: CSharpProperty, config: ExtensionConfig):
     );
 }
 
-export function generateClass(x: CSharpClass, config: ExtensionConfig): string {
+export function generateClass(x: CSharpClass, config: ExtensionCs2TsConfig): string {
     const inheritsTypes = x.inherits.map(x => generateType(x, config));
     const name = x.name;
     const modifier = (x.isPublic ? "export " : "");
@@ -112,22 +112,24 @@ export function generateClass(x: CSharpClass, config: ExtensionConfig): string {
     }
 }
 
-function getTypescriptPropertyName(name: string, config: ExtensionConfig) {
-    var isAbbreviation = name.toUpperCase()===name;
+function getTypescriptPropertyName(name: string, config: ExtensionCs2TsConfig) {
+    var isAbbreviation = name.toUpperCase() === name;
     name = trimMemberName(name, config);
+    if (config.keepAbbreviation && isAbbreviation) {
+        let rep = name.split('_')[0];
+        return name.replace(rep, rep.toLowerCase());
+    }
     if (config.propertiesToCamelCase && !isAbbreviation) {
         return name[0].toLowerCase() + name.substring(1);
     }
-
     return name;
 }
 
-export function trimMemberName(name: string, config: ExtensionConfig): string {
+export function trimMemberName(name: string, config: ExtensionCs2TsConfig): string {
     name = name.trim();
 
     var postfixes = config.trimPostfixes;
-    if (!postfixes)
-        {return name;}
+    if (!postfixes) { return name; }
     var trimRecursive = config.recursiveTrimPostfixes;
 
     var trimmed = true;
@@ -135,12 +137,10 @@ export function trimMemberName(name: string, config: ExtensionConfig): string {
         trimmed = false;
 
         for (let postfix of postfixes) {
-            if (!name.endsWith(postfix))
-                {continue;}
+            if (!name.endsWith(postfix)) { continue; }
 
             name = trimEnd(name, postfix);
-            if (!trimRecursive)
-                {return name;}
+            if (!trimRecursive) { return name; }
 
             trimmed = true;
         }

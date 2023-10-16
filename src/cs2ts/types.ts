@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { cap, optional, seq, zeroOrMore } from "./compose";
 import { identifier, namespace as namespaceRegex, spaceOptional } from "./regexs";
-import { ExtensionConfig } from "./config";
+import { ExtensionCs2TsConfig } from "./config";
 
 enum CsTypeCategory {
     /**A type that can be represented as a collection of items */
@@ -145,7 +145,7 @@ export function getTypeCategory(x: CsType): CsTypeCategory {
     return cat ? cat.category : CsTypeCategory.Other;
 }
 
-export function convertToTypescript(x: CsType, config: ExtensionConfig): string {
+export function convertToTypescript(x: CsType, config: ExtensionCs2TsConfig): string {
     if (config.byteArrayToString && getTypeCategory(x) === CsTypeCategory.ByteArray) {
         return "string";
     }
@@ -161,7 +161,7 @@ export function convertToTypescript(x: CsType, config: ExtensionConfig): string 
     return convertToTypescriptNoArray(x, config) + arrayStr;
 }
 
-function convertToTypescriptNoArray(value: CsType, config: ExtensionConfig): string {
+function convertToTypescriptNoArray(value: CsType, config: ExtensionCs2TsConfig): string {
     const category = getTypeCategory(value);
     switch (category) {
         case CsTypeCategory.Enumerable: {
