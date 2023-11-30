@@ -202,7 +202,13 @@ function convertToTypescriptNoArray(value: CsType, config: ExtensionCs2TsConfig)
             return "number";
         }
         case CsTypeCategory.Date: {
-            return config.dateToDateOrString ? "Date | string" : "Date";
+            if (config.dateTypeInTs === 'string') {
+                return "string";
+            }
+            if (config.dateTypeInTs === 'date') {
+                return "Date";
+            }
+            return "Date | string";
         }
         case CsTypeCategory.String: {
             return "string";

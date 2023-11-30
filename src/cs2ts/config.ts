@@ -17,8 +17,8 @@ export interface ExtensionCs2TsConfig {
     methodStyle: "signature" | "lambda" | "controller";
     /**True to convert C# byte array type to Typescript string, defaults to true since the serialization of C# byte[] results in a string */
     byteArrayToString: boolean;
-    /**True to convert C# DateTime and DateTimeOffset to Typescript (Date | string), defaults to true since the serialization of C# DateTime results in a string */
-    dateToDateOrString: boolean;
+    /**Set the replacement type for C# DateTime and DateTimeOffset. Default is string type*/
+    dateTypeInTs: "string" | "date" | "both";
     /**Remove fields or properties with the given modifiers. Ex. if you want to remove private and internal members set to ['private', 'internal'] */
     removeWithModifier: string[];
     /**If setted, any property or field that its name matches the given regex will be removed */

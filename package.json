@@ -94,10 +94,15 @@
             "default": true,
             "description": "True to convert C# byte array type to Typescript string, defaults to true since the serialization of C# byte[] results in a string"
           },
-          "converter.dateToDateOrString": {
-            "type": "boolean",
-            "default": true,
-            "description": "True to convert C# DateTime and DateTimeOffset to Typescript (Date | string), defaults to true since the serialization of C# DateTime results in a string"
+          "converter.dateTypeInTs": {
+            "type": "string",
+            "enum": [
+              "string",
+              "date",
+              "both"
+            ],
+            "default": "string",
+            "description": "Set the replacement type for C# DateTime and DateTimeOffset. Default is string type"
           },
           "converter.removeWithModifier": {
             "type": "array",
@@ -149,6 +154,11 @@
             ],
             "default": "ienumerable",
             "description": "Set the replacement type for array"
+          },
+          "converter.dateTypeInCSharp": {
+            "type": "boolean",
+            "default": false,
+            "description": "True to set the DateTime type for TS Date. Default is false"
           }
         }
       }

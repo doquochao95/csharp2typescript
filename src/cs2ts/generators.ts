@@ -117,6 +117,9 @@ function getTypescriptPropertyName(name: string, config: ExtensionCs2TsConfig) {
     name = trimMemberName(name, config);
     if (config.keepAbbreviation && isAbbreviation) {
         let rep = name.split('_')[0];
+        if (name.indexOf('_') !== -1) {
+            rep = rep.substring(0, rep.length - 1);
+        }
         return name.replace(rep, rep.toLowerCase());
     }
     if (config.propertiesToCamelCase && !isAbbreviation) {

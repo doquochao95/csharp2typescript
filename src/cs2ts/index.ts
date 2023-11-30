@@ -128,7 +128,7 @@ export function getCs2TsConfiguration(): ExtensionCs2TsConfig {
     const removeConstructors = vscode.workspace.getConfiguration('converter').get("removeConstructors") as boolean;
     const methodStyle = vscode.workspace.getConfiguration('converter').get("methodStyle") as ("signature" | "lambda");
     const byteArrayToString = vscode.workspace.getConfiguration('converter').get("byteArrayToString") as boolean;
-    const dateToDateOrString = vscode.workspace.getConfiguration('converter').get("dateToDateOrString") as boolean;
+    const dateTypeInTs = vscode.workspace.getConfiguration('converter').get("dateTypeInTs") as ("string" | "date" | "both");
     const removeWithModifier = vscode.workspace.getConfiguration('converter').get("removeWithModifier") as string[];
     const removeNameRegex = vscode.workspace.getConfiguration('converter').get("removeNameRegex") as string;
     const classToInterface = vscode.workspace.getConfiguration('converter').get("classToInterface") as boolean;
@@ -147,7 +147,7 @@ export function getCs2TsConfiguration(): ExtensionCs2TsConfig {
         removeConstructors,
         methodStyle,
         byteArrayToString,
-        dateToDateOrString,
+        dateTypeInTs,
         removeWithModifier,
         removeNameRegex,
         classToInterface,

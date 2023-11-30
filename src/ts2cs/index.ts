@@ -3,8 +3,8 @@ import { ExtensionTs2CsConfig } from "./config";
 
 //#region TS TO CS
 const interfaceNameRegex = /(interface|class) ([a-zA-Z0-9_?]+) /g;
-const interfaceBodyRegex = /((interface|class) [a-zA-Z0-9_?]+\s*{[\sa-zA-Z0-9_:?;\[\]]+})/g;
-const interfaceBodyExportsOnlyRegex = /(export (interface|class) [a-zA-Z0-9_?]+\s*{[\sa-zA-Z0-9_:?;\[\]]+})/g;
+const interfaceBodyRegex = /((interface|class) [a-zA-Z0-9_?]+\s*{[\sa-zA-Z0-9_:?|;\[\]]+})/g;
+const interfaceBodyExportsOnlyRegex = /(export (interface|class) [a-zA-Z0-9_?]+\s*{[\sa-zA-Z0-9_:?|;\[\]]+})/g;
 const propertyRegex = /([a-zA-Z0-9_?]+\s*:\s*[a-zA-Z_\[\]]+)/g;
 
 interface TsProperty {
@@ -18,6 +18,8 @@ const typeMappings = {
     any: "object",
     void: "void",
     never: "void",
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    Date: ""
 };
 const convertToPascalCase = (str: string) => {
     return str.length >= 2
@@ -34,7 +36,7 @@ public class ${className} {
 const csProperty = (propertyName: string, propertyType: string, config: ExtensionTs2CsConfig) => {
     const isList = propertyType.includes("[");
     propertyType = propertyType.replace(/\[\]/g, "");
-
+    typeMappings['Date'] = config.dateTypeInCSharp ? 'DateTime' : 'string';
     let csType: string;
     if (Object.keys(typeMappings).includes(propertyType)) {
         csType = typeMappings[propertyType];
@@ -101,12 +103,13 @@ const extractProperties = (tsInterface: string): TsProperty[] => {
     return tsProperties;
 };
 export function getTs2CsConfiguration(): ExtensionTs2CsConfig {
-
     const propertiesToPascalCase = vscode.workspace.getConfiguration('converter').get("propertiesToPascalCase") as boolean;
     const arrayType = vscode.workspace.getConfiguration('converter').get("arrayType") as ("list" | "iqueryable" | "ienumerable");
+    const dateTypeInCSharp = vscode.workspace.getConfiguration('converter').get("dateTypeInCSharp") as boolean;
     return {
         propertiesToPascalCase,
         arrayType,
+        dateTypeInCSharp
     };
 }
 /**Convert typescript code to c# code */

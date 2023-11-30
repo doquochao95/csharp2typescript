@@ -3,4 +3,6 @@ export interface ExtensionTs2CsConfig {
     propertiesToPascalCase: boolean;
     /**Set the replacement type for array*/
     arrayType: "list" | "iqueryable" | "ienumerable";
+    /**Set the replacement type for TS Date. Default is string type*/
+    dateTypeInCSharp: boolean;
 }
