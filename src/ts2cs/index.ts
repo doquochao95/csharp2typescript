@@ -27,10 +27,9 @@ const convertToPascalCase = (str: string) => {
         : str.toUpperCase();
 };
 const csClass1 = (className: string, classProperties: string) => {
-    return `
-public class ${className} {
-    ${classProperties}
-}
+    return `public class ${className}
+    {${classProperties}
+    }
     `;
 };
 const csProperty = (propertyName: string, propertyType: string, config: ExtensionTs2CsConfig) => {
@@ -54,8 +53,7 @@ const csProperty = (propertyName: string, propertyType: string, config: Extensio
     }
     const csPropertyName = config.propertiesToPascalCase ? convertToPascalCase(propertyName) : propertyName;
     return `
-    public ${csType} ${csPropertyName} { get; set; }
-    `;
+        public ${csType} ${csPropertyName} { get; set; }`;
 };
 const convertInterfaceToCSharp = (
     tsInterface: string,
@@ -73,7 +71,7 @@ const convertInterfaceToCSharp = (
         .map(property => {
             return csProperty(property.property, property.type, config);
         })
-        .join("");
+        .join('');
 
     return csClass1(interfaceName, csProps);
 };

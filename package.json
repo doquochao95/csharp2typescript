@@ -2,7 +2,7 @@
   "name": "cstsconverter",
   "displayName": "C#-TS Converter",
   "publisher": "doquochao95",
-  "description": "",
+  "description": "Convert model between C# and TS",
   "icon": "images/logo.png",
   "version": "0.0.2",
   "engines": {
