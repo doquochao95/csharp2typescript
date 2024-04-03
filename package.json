@@ -1,10 +1,10 @@
 {
-  "name": "converter",
+  "name": "cstsconverter",
   "displayName": "C#-TS Converter",
   "publisher": "doquochao95",
   "description": "",
   "icon": "images/logo.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.83.0"
   },
